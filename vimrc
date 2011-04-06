@@ -1,3 +1,10 @@
+call pathogen#runtime_append_all_bundles()
+call pathogen#helptags()
+
+set hidden
+set number
+set vb t_vb=
+
 " Disable backups
 set nobackup
 
@@ -82,9 +89,6 @@ syntax on
 
 " Automatically indent based on file type
 filetype indent on
-
-" Keep indentation level from previous line
-set autoindent
 
 " Folding based on indentation: ``set foldmethod=indent``
 
