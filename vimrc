@@ -23,8 +23,7 @@ set autoindent
 
 " Default indentation handling.
 "
-" Convert tabs characters to four spaces and make the group of spaces
-" feel like a real tab character
+" Leave tab characters unmolested, but display only 2 characters wide
 set noexpandtab
 set tabstop=2
 set shiftwidth=2
@@ -37,11 +36,17 @@ au BufRead,BufNewFile *py,*pyw,*.c,*.h set tabstop=8
 " What to use for an indent.
 " This will affect Ctrl-T and 'autoindent'.
 " Python: 4 spaces
+" Ruby: 2 spaces
 " C: tabs (pre-existing files) or 4 spaces (new files)
+" Makefile: no tab expansion
 au BufRead,BufNewFile *.py,*.pyw set shiftwidth=4
 au BufRead,BufNewFile *.py,*.pyw set tabstop=4
 au BufRead,BufNewFile *.py,*.pyw set softtabstop=4
 au BufRead,BufNewFile *.py,*.pyw set expandtab
+au BufRead,BufNewFile *.rb set shiftwidth=2
+au BufRead,BufNewFile *.rb set tabstop=2
+au BufRead,BufNewFile *.rb set softtabstop=2
+au BufRead,BufNewFile *.rb set expandtab
 fu Select_c_style()
     if search('^\t', 'n', 150)
         set shiftwidth=8
@@ -54,18 +59,26 @@ endf
 au BufRead,BufNewFile *.c,*.h call Select_c_style()
 au BufRead,BufNewFile Makefile* set noexpandtab
 
-" Use the below highlight group when displaying bad whitespace is desired.
-highlight BadWhitespace ctermbg=red guibg=red
+" Django template tags
+au Filetype htmldjango inoremap <buffer> <c-t> {%<space><space>%}<left><left><left>
+" Django template variables
+au Filetype htmldjango inoremap <buffer> <c-v> {{<space><space>}}<left><left><left>
 
+" Use the below highlight group when displaying bad whitespace
+highlight BadWhitespace ctermbg=red guibg=red
 " Display tabs at the beginning of a line in Python mode as bad.
 au BufRead,BufNewFile *.py,*.pyw match BadWhitespace /^\t\+/
-" Make trailing whitespace be flagged as bad.
-au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+" Flag trailing whitespace as bad.
+" Python: yes
+" Ruby: yes
+" C: yes
+au BufRead,BufNewFile *.py,*.pyw,*.rb,*.c,*.h match BadWhitespace /\s\+$/
 
 " Wrap text after a certain number of characters
 " Python: 79 
+" Ruby: 79
 " C: 79
-au BufRead,BufNewFile *.py,*.pyw,*.c,*.h set textwidth=79
+au BufRead,BufNewFile *.py,*.pyw,*.rb,*.c,*.h set textwidth=79
 
 " Turn off settings in 'formatoptions' relating to comment formatting.
 " - c : do not automatically insert the comment leader when wrapping based on
@@ -73,6 +86,7 @@ au BufRead,BufNewFile *.py,*.pyw,*.c,*.h set textwidth=79
 " - o : do not insert the comment leader when using 'o' or 'O' from command mode
 " - r : do not insert the comment leader when hitting <Enter> in insert mode
 " Python: not needed
+" Ruby: not needed
 " C: prevents insertion of '*' at the beginning of every line in a comment
 au BufRead,BufNewFile *.c,*.h set formatoptions-=c formatoptions-=o formatoptions-=r
 
@@ -80,8 +94,9 @@ au BufRead,BufNewFile *.c,*.h set formatoptions-=c formatoptions-=o formatoption
 " Only used for new files so as to not force existing files to change their
 " line endings.
 " Python: yes
+" Ruby: yes
 " C: yes
-au BufNewFile *.py,*.pyw,*.c,*.h set fileformat=unix
+au BufNewFile *.py,*.pyw,*.rb,*.c,*.h set fileformat=unix
 
 " For full syntax highlighting:
 let python_highlight_all=1
