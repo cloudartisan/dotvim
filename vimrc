@@ -37,16 +37,17 @@ au BufRead,BufNewFile *py,*pyw,*.c,*.h set tabstop=8
 " This will affect Ctrl-T and 'autoindent'.
 " Python: 4 spaces
 " Ruby: 2 spaces
+" ERB: 2 spaces
 " C: tabs (pre-existing files) or 4 spaces (new files)
 " Makefile: no tab expansion
 au BufRead,BufNewFile *.py,*.pyw set shiftwidth=4
 au BufRead,BufNewFile *.py,*.pyw set tabstop=4
 au BufRead,BufNewFile *.py,*.pyw set softtabstop=4
 au BufRead,BufNewFile *.py,*.pyw set expandtab
-au BufRead,BufNewFile *.rb set shiftwidth=2
-au BufRead,BufNewFile *.rb set tabstop=2
-au BufRead,BufNewFile *.rb set softtabstop=2
-au BufRead,BufNewFile *.rb set expandtab
+au BufRead,BufNewFile *.rb,*.erb set shiftwidth=2
+au BufRead,BufNewFile *.rb,*.erb set tabstop=2
+au BufRead,BufNewFile *.rb,*.erb set softtabstop=2
+au BufRead,BufNewFile *.rb,*.erb set expandtab
 fu Select_c_style()
     if search('^\t', 'n', 150)
         set shiftwidth=8
