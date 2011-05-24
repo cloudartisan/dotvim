@@ -15,8 +15,11 @@ set ruler
 syntax on
 set background=light
 
-" Enable automatic wrap
-set tw=78
+" Enable automatic wrap, use par to format paragraphs, remove superfluous
+" lines
+set formatoptions+=t
+set textwidth=79
+set formatprg=par\ -w79re
 
 " Enable automatic indentation
 set autoindent
