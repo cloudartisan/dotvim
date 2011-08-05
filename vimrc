@@ -32,37 +32,24 @@ set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 
-" Number of spaces that a pre-existing tab is equal to.
-" For the amount of space used for a new tab use shiftwidth.
-au BufRead,BufNewFile *py,*pyw,*.c,*.h set tabstop=8
-
 " What to use for an indent.
 " This will affect Ctrl-T and 'autoindent'.
 " Python: 4 spaces
 " Ruby: 2 spaces
 " ERB: 2 spaces
 " YAML: 2 spaces
+" Clojure: 2 spaces
 " C: tabs (pre-existing files) or 4 spaces (new files)
 " Makefile: no tab expansion
-au BufRead,BufNewFile *.py,*.pyw set shiftwidth=4
-au BufRead,BufNewFile *.py,*.pyw set tabstop=4
-au BufRead,BufNewFile *.py,*.pyw set softtabstop=4
-au BufRead,BufNewFile *.py,*.pyw set expandtab
-au BufRead,BufNewFile *.rb,*.erb set shiftwidth=2
-au BufRead,BufNewFile *.rb,*.erb set tabstop=2
-au BufRead,BufNewFile *.rb,*.erb set softtabstop=2
-au BufRead,BufNewFile *.rb,*.erb set expandtab
-au BufRead,BufNewFile *.yml set shiftwidth=2
-au BufRead,BufNewFile *.yml set tabstop=2
-au BufRead,BufNewFile *.yml set softtabstop=2
-au BufRead,BufNewFile *.yml set expandtab
+au BufRead,BufNewFile *.py,*.pyw set sw=4 ts=4 sts=4 expandtab
+au BufRead,BufNewFile *.rb,*.erb set sw=2 ts=2 sts=2 expandtab
+au BufRead,BufNewFile *.yml set sw=2 ts=2 sts=2 expandtab
+au BufRead,BufNewFile *.clj set sw=2 ts=2 sts=2 expandtab
 fu Select_c_style()
     if search('^\t', 'n', 150)
-        set shiftwidth=8
-        set noexpandtab
+        set sw=8 ts=8 noexpandtab
     el 
-        set shiftwidth=4
-        set expandtab
+        set sw=4 ts=4 expandtab
     en
 endf
 au BufRead,BufNewFile *.c,*.h call Select_c_style()
@@ -88,6 +75,10 @@ au BufRead,BufNewFile *.py,*.pyw,*.rb,*.c,*.h match BadWhitespace /\s\+$/
 " Ruby: 79
 " C: 79
 au BufRead,BufNewFile *.py,*.pyw,*.rb,*.c,*.h set textwidth=79
+
+" Highlight characters that go over the textwidth limit
+:highlight OverLength ctermbg=red ctermfg=white guibg=red guifg=white
+:match OverLength '\%79v.*'
 
 " Turn off settings in 'formatoptions' relating to comment formatting.
 " - c : do not automatically insert the comment leader when wrapping based on
