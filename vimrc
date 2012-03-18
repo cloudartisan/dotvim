@@ -11,9 +11,18 @@ set nobackup
 " Show the cursor position
 set ruler
 
-" Enable syntax highlighting
+" Enable syntax highlighting with 256 colours
 syntax on
-set background=light
+set background=dark
+set t_Co=256
+colorscheme solarized
+
+" Use the system registry by default for the clipboard
+set clipboard=unnamed
+
+" Allow Ctrl+PgUp/PgDn in tmux
+set t_kN=[6;*~
+set t_kP=[5;*~
 
 " Enable automatic wrap, use par to format paragraphs, remove superfluous
 " lines
@@ -38,12 +47,14 @@ set softtabstop=2
 " Ruby: 2 spaces
 " ERB: 2 spaces
 " YAML: 2 spaces
+" Markdown: 2 spaces
 " Clojure: 2 spaces
 " C: tabs (pre-existing files) or 4 spaces (new files)
 " Makefile: no tab expansion
 au BufRead,BufNewFile *.py,*.pyw set sw=4 ts=4 sts=4 expandtab
 au BufRead,BufNewFile *.rb,*.erb set sw=2 ts=2 sts=2 expandtab
 au BufRead,BufNewFile *.yml set sw=2 ts=2 sts=2 expandtab
+au BufRead,BufNewFile *.md set sw=2 ts=2 sts=2 expandtab
 au BufRead,BufNewFile *.clj set sw=2 ts=2 sts=2 expandtab
 fu Select_c_style()
     if search('^\t', 'n', 150)
