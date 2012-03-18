@@ -1,18 +1,41 @@
+set nocompatible
+
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
-set hidden
-set number
-set vb t_vb=
+" Trust vim modelines in the files we edit
+set modeline
+
+" Disable search annoyances
+set noincsearch
+set nohlsearch
 
 " Disable backups
 set nobackup
 
-" Show the cursor position
-set ruler
+" Get rid of all bells
+set noerrorbells
+set visualbell
+set vb t_vb=
 
-" Enable syntax highlighting with 256 colours
-syntax on
+" Interface tweaks
+set ruler            " show me a ruler
+set noshowmode       " don't show me that I'm in INSERT mode
+set scrolloff=8      " 8 lines of context around the cursor at all times
+set foldclose=       " disable automatic fold closing
+set showcmd          " show the vi command in the ruler
+set showmatch        " show me matching parentheses, braces, etc
+set matchpairs+=<:>  " include < > when matching
+set ignorecase       " case-insensitive searching
+set smartcase        " determine when I really want case-sensitive searching
+
+" Enable syntax highlighting where possible
+if has("syntax")
+	syntax on
+  let python_highlight_all=1
+end
+
+" 256 colours of sexiness
 set background=dark
 set t_Co=256
 colorscheme solarized
@@ -30,16 +53,35 @@ set formatoptions+=t
 set textwidth=79
 set formatprg=par\ -w79re
 
-" Enable automatic indentation
-set autoindent
-
-" Default indentation handling.
-"
-" Leave tab characters unmolested, but display only 2 characters wide
-set noexpandtab
-set tabstop=2
-set shiftwidth=2
+" Default indentation handling
+set expandtab             " convert my tab characters to spaces
+set shiftwidth=2          " shift by 2 spaces
+set tabstop=2             " tabs are 2 spaces
 set softtabstop=2
+set backspace=indent,eol  " sensible backspacing
+set autoindent
+set nosmartindent
+
+" Set title string and push it to xterm/screen window title
+set titlestring=vim\ %<%F%(\ %)%m%h%w%=%l/%L-%P 
+set titlelen=70
+if &term == "screen" || &term == "tmux"
+  set t_ts=k
+  set t_fs=\
+endif
+if &term == "screen" || &term == "tmux" || &term == "xterm"
+  set title
+endif
+
+" Support plugin documentation
+if isdirectory("~/.vim/doc")
+  helptags ~/.vim/doc
+endif
+
+" Allow filetype plugins (ft_plugin stuff)
+filetype on
+filetype plugin on
+filetype plugin indent on
 
 " What to use for an indent.
 " This will affect Ctrl-T and 'autoindent'.
@@ -68,13 +110,16 @@ au BufRead,BufNewFile Makefile* set noexpandtab
 
 " Django template tags
 au Filetype htmldjango inoremap <buffer> <c-t> {%<space><space>%}<left><left><left>
+
 " Django template variables
 au Filetype htmldjango inoremap <buffer> <c-v> {{<space><space>}}<left><left><left>
 
 " Use the below highlight group when displaying bad whitespace
 highlight BadWhitespace ctermbg=red guibg=red
+
 " Display tabs at the beginning of a line in Python mode as bad.
 au BufRead,BufNewFile *.py,*.pyw match BadWhitespace /^\t\+/
+
 " Flag trailing whitespace as bad.
 " Python: yes
 " Ruby: yes
@@ -109,17 +154,13 @@ au BufRead,BufNewFile *.c,*.h set formatoptions-=c formatoptions-=o formatoption
 " C: yes
 au BufNewFile *.py,*.pyw,*.rb,*.c,*.h set fileformat=unix
 
-" For full syntax highlighting:
-let python_highlight_all=1
-syntax on
-
-" Automatically indent based on file type
-filetype indent on
-
-" Folding based on indentation: ``set foldmethod=indent``
+" Folding based on indentation
+set foldmethod=indent
 
 " Set the default file encoding to UTF-8: ``set encoding=utf-8``
 
-" Puts a marker at the beginning of the file to differentiate between UTF and
-" UCS encoding (WARNING: can trick shells into thinking a text file is actually
-" a binary file when executing the text file): ``set bomb``
+" Mappings to jump me to the beginning of functions
+nnoremap [[ ?{<CR>w99[{
+nnoremap ][ /}<CR>b99]}
+nnoremap ]] j0[[%/{<CR>
+nnoremap [] k$][%?}<CR>
