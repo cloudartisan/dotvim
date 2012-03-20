@@ -155,7 +155,7 @@ au BufRead,BufNewFile *.c,*.h set formatoptions-=c formatoptions-=o formatoption
 au BufNewFile *.py,*.pyw,*.rb,*.c,*.h set fileformat=unix
 
 " Folding based on indentation
-set foldmethod=indent
+set foldmethod=marker
 
 " Set the default file encoding to UTF-8: ``set encoding=utf-8``
 
