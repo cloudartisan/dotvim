@@ -10,3 +10,6 @@
 [submodule "bundle/desert256"]
 	path = bundle/desert256
 	url = https://github.com/vim-scripts/desert256.vim.git
+[submodule "bundle/vim-rails"]
+	path = bundle/vim-rails
+	url = git://github.com/tpope/vim-rails.git
