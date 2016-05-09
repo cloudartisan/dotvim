@@ -38,8 +38,8 @@ end
 " 256 colours of sexiness
 set background=dark
 set t_Co=256
-colorscheme solarized
-"colorscheme desert256
+"colorscheme solarized
+colorscheme desert256
 
 " Use the system registry by default for the clipboard
 set clipboard=unnamed
