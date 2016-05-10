@@ -35,7 +35,8 @@ if has("syntax")
   let python_highlight_all=1
 end
 
-" 256 colours of sexiness
+" 256 colours of sexiness (typically use with colorscheme solarized or
+" colorscheme desert256)
 set background=dark
 set t_Co=256
 "colorscheme solarized
@@ -94,6 +95,7 @@ filetype plugin indent on
 " Clojure: 2 spaces
 " C: tabs (pre-existing files) or 4 spaces (new files)
 " Makefile: no tab expansion
+" HCL: 2 spaces, no auto-wrap
 au BufRead,BufNewFile *.py,*.pyw set sw=4 ts=4 sts=4 expandtab
 au BufRead,BufNewFile *.rb,*.erb set sw=2 ts=2 sts=2 expandtab
 au BufRead,BufNewFile *.yml set sw=2 ts=2 sts=2 expandtab
@@ -108,6 +110,7 @@ fu Select_c_style()
 endf
 au BufRead,BufNewFile *.c,*.h call Select_c_style()
 au BufRead,BufNewFile Makefile* set noexpandtab
+au BufRead,BufNewFile *.tf set sw=2 ts=2 sts=2 expandtab tw=0 nowrap
 
 " Django template tags
 au Filetype htmldjango inoremap <buffer> <c-t> {%<space><space>%}<left><left><left>
