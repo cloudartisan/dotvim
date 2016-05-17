@@ -19,3 +19,6 @@
 [submodule "bundle/vim-git"]
 	path = bundle/vim-git
 	url = git://github.com/tpope/vim-git.git
+[submodule "bundle/vim-hashicorp-tools"]
+	path = bundle/vim-hashicorp-tools
+	url = git@github.com:hashivim/vim-hashicorp-tools.git
