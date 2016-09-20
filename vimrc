@@ -3,6 +3,17 @@ set nocompatible
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
+" Set the runtime path to include Vundle and load all the plugins
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-git'
+Plugin 'tpope/vim-markdown'
+Plugin 'tpope/vim-rails'
+Plugin 'hashivim/vim-hashicorp-tools'
+call vundle#end()
+filetype plugin indent on
+
 " Trust vim modelines in the files we edit
 set modeline
 
@@ -39,7 +50,6 @@ end
 " colorscheme desert256)
 set background=dark
 set t_Co=256
-"colorscheme solarized
 colorscheme desert256
 
 " Use the system registry by default for the clipboard
