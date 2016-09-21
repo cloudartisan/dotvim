@@ -206,7 +206,7 @@ au BufRead,BufNewFile *.tf
     \ set shiftwidth=2  |
     \ set expandtab     |
     \ set autoindent    |
-    \ set textwidth 0   |
+    \ set textwidth=0   |
     \ set nowrap
 
 " Django template tags
