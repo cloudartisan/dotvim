@@ -87,11 +87,13 @@ if has("syntax")
   let python_highlight_all=1
 end
 
-" 256 colours of sexiness (typically use with colorscheme solarized or
-" colorscheme desert256)
+" Solarized colorscheme, relies on Terminal.app/iTerm2 also having the
+" solarized scheme loaded; if not, uncomment following 3 lines
+"set term=xterm-256color
+"set t_Co=256
+"let g:solarized_termcolors=256
 set background=dark
-set t_Co=256
-colorscheme desert256
+colorscheme solarized
 
 " Use the system registry by default for the clipboard
 set clipboard=unnamed
@@ -133,55 +135,55 @@ endif
 
 " Python: 4 spaces (PEP8)
 au BufRead,BufNewFile *.py,*.pyw
-    \ set tabstop=4
-    \ set softtabstop=4
-    \ set shiftwidth=4
-    \ set textwidth=79
-    \ set expandtab
-    \ set autoindent
+    \ set tabstop=4     |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4  |
+    \ set textwidth=79  |
+    \ set expandtab     |
+    \ set autoindent    |
     \ set fileformat=unix
 
 " Ruby: 2 spaces
 " ERB: 2 spaces
 au BufRead,BufNewFile *.rb,*.erb
-    \ set tabstop=2
-    \ set softtabstop=2
-    \ set shiftwidth=2
-    \ set expandtab
+    \ set tabstop=2     |
+    \ set softtabstop=2 |
+    \ set shiftwidth=2  |
+    \ set expandtab     |
     \ set autoindent
 
 " HTML: 2 spaces
 " JS: 2 spaces
 " CSS: 2 spaces
 au BufNewFile,BufRead *.js, *.html, *.css
-    \ set tabstop=2
-    \ set softtabstop=2
-    \ set shiftwidth=2
-    \ set expandtab
+    \ set tabstop=2     |
+    \ set softtabstop=2 |
+    \ set shiftwidth=2  |
+    \ set expandtab     |
     \ set autoindent
 
 " YAML: 2 spaces
 au BufRead,BufNewFile *.yml
-    \ set tabstop=2
-    \ set softtabstop=2
-    \ set shiftwidth=2
-    \ set expandtab
+    \ set tabstop=2     |
+    \ set softtabstop=2 |
+    \ set shiftwidth=2  |
+    \ set expandtab     |
     \ set autoindent
 
 " Markdown: 2 spaces
 au BufRead,BufNewFile *.md
-    \ set tabstop=2
-    \ set softtabstop=2
-    \ set shiftwidth=2
-    \ set expandtab
+    \ set tabstop=2     |
+    \ set softtabstop=2 |
+    \ set shiftwidth=2  |
+    \ set expandtab     |
     \ set autoindent
 
 " Clojure: 2 spaces
 au BufRead,BufNewFile *.clj set sw=2 ts=2 sts=2 expandtab
-    \ set tabstop=2
-    \ set softtabstop=2
-    \ set shiftwidth=2
-    \ set expandtab
+    \ set tabstop=2     |
+    \ set softtabstop=2 |
+    \ set shiftwidth=2  |
+    \ set expandtab     |
     \ set autoindent
 
 " C: tabs (pre-existing files) or 4 spaces (new files)
@@ -199,12 +201,12 @@ au BufRead,BufNewFile Makefile* set noexpandtab
 
 " HCL: 2 spaces, no auto-wrap
 au BufRead,BufNewFile *.tf
-    \ set tabstop=2
-    \ set softtabstop=2
-    \ set shiftwidth=2
-    \ set expandtab
-    \ set autoindent
-    \ set textwidth 0
+    \ set tabstop=2     |
+    \ set softtabstop=2 |
+    \ set shiftwidth=2  |
+    \ set expandtab     |
+    \ set autoindent    |
+    \ set textwidth 0   |
     \ set nowrap
 
 " Django template tags
