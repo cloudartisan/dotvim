@@ -1,27 +1,3 @@
-[submodule "bundle/fugitive"]
-	path = bundle/fugitive
-	url = http://github.com/tpope/vim-fugitive.git
-[submodule "bundle/vim-colors-solarized"]
-	path = bundle/vim-colors-solarized
-	url = git://github.com/altercation/vim-colors-solarized.git
-[submodule "bundle/Gist.vim"]
-	path = bundle/Gist.vim
-	url = git://github.com/vim-scripts/Gist.vim.git
-[submodule "bundle/desert256"]
-	path = bundle/desert256
-	url = https://github.com/vim-scripts/desert256.vim.git
-[submodule "bundle/vim-rails"]
-	path = bundle/vim-rails
-	url = git://github.com/tpope/vim-rails.git
-[submodule "bundle/vim-markdown"]
-	path = bundle/vim-markdown
-	url = git://github.com/tpope/vim-markdown.git
-[submodule "bundle/vim-git"]
-	path = bundle/vim-git
-	url = git://github.com/tpope/vim-git.git
-[submodule "bundle/vim-hashicorp-tools"]
-	path = bundle/vim-hashicorp-tools
-	url = git@github.com:hashivim/vim-hashicorp-tools.git
 [submodule "bundle/Vundle.vim"]
 	path = bundle/Vundle.vim
 	url = git@github.com:VundleVim/Vundle.vim.git

@@ -1,4 +1,5 @@
-set nocompatible
+set nocompatible " Required by Vundle
+filetype off     " Required by Vundle
 
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
@@ -6,11 +7,35 @@ call pathogen#helptags()
 " Set the runtime path to include Vundle and load all the plugins
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-git'
-Plugin 'tpope/vim-markdown'
-Plugin 'tpope/vim-rails'
-Plugin 'hashivim/vim-hashicorp-tools'
+  Plugin 'tpope/vim-fugitive'
+  Plugin 'tpope/vim-git'
+  Plugin 'tpope/vim-markdown'
+  Plugin 'tpope/vim-rails'
+  Plugin 'vim-scripts/Gist.vim'
+  Plugin 'vim-scripts/desert256'
+  Plugin 'altercation/vim-colors-solarized'
+  Plugin 'hashivim/vim-hashicorp-tools'
+  Plugin 'Valloric/YouCompleteMe'
+  Plugin 'django.vim'
+
+  let g:ycm_collect_identifiers_from_tags_files = 1 " Let YCM read tags from Ctags file
+  let g:ycm_use_ultisnips_completer = 1             " Default 1, just ensure
+  let g:ycm_seed_identifiers_with_syntax = 1        " Completion for programming language's keyword
+  let g:ycm_complete_in_comments = 1                " Completion in comments
+  let g:ycm_complete_in_strings = 1                 " Completion in string
+
+  Plugin 'SirVer/ultisnips'
+  Plugin 'honza/vim-snippets'
+
+  " Trigger configuration. Do not use <tab> if you use
+  " https://github.com/Valloric/YouCompleteMe.
+  let g:UltiSnipsExpandTrigger       = "<c-j>"
+  let g:UltiSnipsJumpForwardTrigger  = "<c-j>"
+  let g:UltiSnipsJumpBackwardTrigger = "<c-p>"
+  let g:UltiSnipsListSnippets        = "<c-k>" "List possible snippets based on current file
+
+  " If you want :UltiSnipsEdit to split your window.
+  let g:UltiSnipsEditSplit="vertical"
 call vundle#end()
 filetype plugin indent on
 
@@ -89,11 +114,6 @@ endif
 if isdirectory("~/.vim/doc")
   helptags ~/.vim/doc
 endif
-
-" Allow filetype plugins (ft_plugin stuff)
-filetype on
-filetype plugin on
-filetype plugin indent on
 
 " What to use for an indent.
 " This will affect Ctrl-T and 'autoindent'.
