@@ -7,16 +7,31 @@ call pathogen#helptags()
 " Set the runtime path to include Vundle and load all the plugins
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-  Plugin 'tpope/vim-fugitive'
-  Plugin 'tpope/vim-git'
+  " Let Vundle manage Vundle
+  Plugin 'gmarik/Vundle.vim'
+
+  " Git/Gist
+  Plugin 'tpope/vim-fugitive'    " Handy git commands
+  Plugin 'tpope/vim-git'         " Syntax, indent, and filetype
+  Plugin 'vim-scripts/Gist.vim'  " Managing gists
+
+  " Improve the statusline, always show it
+  Plugin 'vim-airline/vim-airline'
+  Plugin 'vim-airline/vim-airline-themes'
+  set laststatus=2
+
+  " Language-specific magic
   Plugin 'tpope/vim-markdown'
   Plugin 'tpope/vim-rails'
-  Plugin 'vim-scripts/Gist.vim'
+  Plugin 'hashivim/vim-hashicorp-tools'
+  Plugin 'django.vim'
+
+  " Some nice colours to have around
   Plugin 'vim-scripts/desert256.vim'
   Plugin 'altercation/vim-colors-solarized'
-  Plugin 'hashivim/vim-hashicorp-tools'
+
+  " Code completion
   Plugin 'Valloric/YouCompleteMe'
-  Plugin 'django.vim'
 
   let g:ycm_collect_identifiers_from_tags_files = 1 " Let YCM read tags from Ctags file
   let g:ycm_use_ultisnips_completer = 1             " Default 1, just ensure
@@ -24,6 +39,7 @@ call vundle#begin()
   let g:ycm_complete_in_comments = 1                " Completion in comments
   let g:ycm_complete_in_strings = 1                 " Completion in string
 
+  " Snippet magic
   Plugin 'SirVer/ultisnips'
   Plugin 'honza/vim-snippets'
 
@@ -67,7 +83,7 @@ set smartcase        " determine when I really want case-sensitive searching
 
 " Enable syntax highlighting where possible
 if has("syntax")
-	syntax on
+  syntax on
   let python_highlight_all=1
 end
 
@@ -100,7 +116,7 @@ set autoindent
 set nosmartindent
 
 " Set title string and push it to xterm/screen window title
-set titlestring=vim\ %<%F%(\ %)%m%h%w%=%l/%L-%P 
+set titlestring=vim\ %<%F%(\ %)%m%h%w%=%l/%L-%P
 set titlelen=70
 if &term == "screen" || &term == "tmux"
   set t_ts=k
@@ -115,32 +131,81 @@ if isdirectory("~/.vim/doc")
   helptags ~/.vim/doc
 endif
 
-" What to use for an indent.
-" This will affect Ctrl-T and 'autoindent'.
-" Python: 4 spaces
+" Python: 4 spaces (PEP8)
+au BufRead,BufNewFile *.py,*.pyw
+    \ set tabstop=4
+    \ set softtabstop=4
+    \ set shiftwidth=4
+    \ set textwidth=79
+    \ set expandtab
+    \ set autoindent
+    \ set fileformat=unix
+
 " Ruby: 2 spaces
 " ERB: 2 spaces
+au BufRead,BufNewFile *.rb,*.erb
+    \ set tabstop=2
+    \ set softtabstop=2
+    \ set shiftwidth=2
+    \ set expandtab
+    \ set autoindent
+
+" HTML: 2 spaces
+" JS: 2 spaces
+" CSS: 2 spaces
+au BufNewFile,BufRead *.js, *.html, *.css
+    \ set tabstop=2
+    \ set softtabstop=2
+    \ set shiftwidth=2
+    \ set expandtab
+    \ set autoindent
+
 " YAML: 2 spaces
+au BufRead,BufNewFile *.yml
+    \ set tabstop=2
+    \ set softtabstop=2
+    \ set shiftwidth=2
+    \ set expandtab
+    \ set autoindent
+
 " Markdown: 2 spaces
+au BufRead,BufNewFile *.md
+    \ set tabstop=2
+    \ set softtabstop=2
+    \ set shiftwidth=2
+    \ set expandtab
+    \ set autoindent
+
 " Clojure: 2 spaces
-" C: tabs (pre-existing files) or 4 spaces (new files)
-" Makefile: no tab expansion
-" HCL: 2 spaces, no auto-wrap
-au BufRead,BufNewFile *.py,*.pyw set sw=4 ts=4 sts=4 expandtab
-au BufRead,BufNewFile *.rb,*.erb set sw=2 ts=2 sts=2 expandtab
-au BufRead,BufNewFile *.yml set sw=2 ts=2 sts=2 expandtab
-au BufRead,BufNewFile *.md set sw=2 ts=2 sts=2 expandtab
 au BufRead,BufNewFile *.clj set sw=2 ts=2 sts=2 expandtab
+    \ set tabstop=2
+    \ set softtabstop=2
+    \ set shiftwidth=2
+    \ set expandtab
+    \ set autoindent
+
+" C: tabs (pre-existing files) or 4 spaces (new files)
 fu Select_c_style()
     if search('^\t', 'n', 150)
         set sw=8 ts=8 noexpandtab
-    el 
+    el
         set sw=4 ts=4 expandtab
     en
 endf
 au BufRead,BufNewFile *.c,*.h call Select_c_style()
+
+" Makefile: no tab expansion
 au BufRead,BufNewFile Makefile* set noexpandtab
-au BufRead,BufNewFile *.tf set sw=2 ts=2 sts=2 expandtab tw=0 nowrap
+
+" HCL: 2 spaces, no auto-wrap
+au BufRead,BufNewFile *.tf
+    \ set tabstop=2
+    \ set softtabstop=2
+    \ set shiftwidth=2
+    \ set expandtab
+    \ set autoindent
+    \ set textwidth 0
+    \ set nowrap
 
 " Django template tags
 au Filetype htmldjango inoremap <buffer> <c-t> {%<space><space>%}<left><left><left>
@@ -161,7 +226,7 @@ au BufRead,BufNewFile *.py,*.pyw match BadWhitespace /^\t\+/
 au BufRead,BufNewFile *.py,*.pyw,*.rb,*.c,*.h match BadWhitespace /\s\+$/
 
 " Wrap text after a certain number of characters
-" Python: 79 
+" Python: 79
 " Ruby: 79
 " C: 79
 au BufRead,BufNewFile *.py,*.pyw,*.rb,*.c,*.h set textwidth=79
@@ -192,6 +257,16 @@ au BufNewFile *.py,*.pyw,*.rb,*.c,*.h set fileformat=unix
 set foldmethod=marker
 
 " Set the default file encoding to UTF-8: ``set encoding=utf-8``
+
+" Mappings to jump between window splits
+" Ctrl-j move to the split below
+" Ctrl-k move to the split above
+" Ctrl-l move to the split to the right
+" Ctrl-h move to the split to the left
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
 " Mappings to jump me to the beginning of functions
 nnoremap [[ ?{<CR>w99[{

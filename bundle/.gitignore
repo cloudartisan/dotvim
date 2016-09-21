@@ -3,6 +3,8 @@ YouCompleteMe
 desert256.vim
 django.vim
 ultisnips
+vim-airline
+vim-airline-themes
 vim-colors-solarized
 vim-fugitive
 vim-git
