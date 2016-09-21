@@ -12,7 +12,7 @@ call vundle#begin()
   Plugin 'tpope/vim-markdown'
   Plugin 'tpope/vim-rails'
   Plugin 'vim-scripts/Gist.vim'
-  Plugin 'vim-scripts/desert256'
+  Plugin 'vim-scripts/desert256.vim'
   Plugin 'altercation/vim-colors-solarized'
   Plugin 'hashivim/vim-hashicorp-tools'
   Plugin 'Valloric/YouCompleteMe'
