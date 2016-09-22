@@ -34,7 +34,6 @@ call vundle#begin()
   Plugin 'django.vim'
 
   " Some nice colours to have around
-  Plugin 'vim-scripts/desert256.vim'
   Plugin 'altercation/vim-colors-solarized'
 
   " Code completion
