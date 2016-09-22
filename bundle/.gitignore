@@ -2,6 +2,8 @@ Gist.vim
 YouCompleteMe
 desert256.vim
 django.vim
+promptline.vim
+tmuxline.vim
 ultisnips
 vim-airline
 vim-airline-themes
