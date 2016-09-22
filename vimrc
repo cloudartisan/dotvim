@@ -20,6 +20,13 @@ call vundle#begin()
   Plugin 'vim-airline/vim-airline-themes'
   set laststatus=2
 
+  " Integrate the statusline with the tmux status
+  Plugin 'edkolev/tmuxline.vim'
+
+  " Integrate the statusline with the shell prompt
+  Plugin 'edkolev/promptline.vim'
+  let g:promptline_powerline_symbols = 0
+
   " Language-specific magic
   Plugin 'tpope/vim-markdown'
   Plugin 'tpope/vim-rails'
