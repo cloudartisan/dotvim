@@ -49,7 +49,7 @@ vim +PluginInstall +qall
 ## Compiling YouCompleteMe
 
 ```
-cd $HOME/bundle/YouCompleteMe
+cd $HOME/.vim/bundle/YouCompleteMe
 ./install.py --clang-completer
 ```
 
