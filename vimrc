@@ -22,6 +22,7 @@ call vundle#begin()
 
   " Integrate the statusline with the tmux status
   Plugin 'edkolev/tmuxline.vim'
+  let g:tmuxline_powerline_symbols = 0
 
   " Integrate the statusline with the shell prompt
   Plugin 'edkolev/promptline.vim'
