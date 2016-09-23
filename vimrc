@@ -22,17 +22,26 @@ call vundle#begin()
 
   " Integrate the statusline with the tmux status
   Plugin 'edkolev/tmuxline.vim'
-  let g:tmuxline_powerline_symbols = 0
+  let g:tmuxline_powerline_separators = 0
 
   " Integrate the statusline with the shell prompt
   Plugin 'edkolev/promptline.vim'
   let g:promptline_powerline_symbols = 0
 
-  " Language-specific magic
+  " Syntax checking
+  Plugin 'scrooloose/syntastic'
+
+  set statusline+=%#warningmsg#
+  set statusline+=%{SyntasticStatuslineFlag()}
+  set statusline+=%*
+
+  let g:syntastic_always_populate_loc_list = 1
+  let g:syntastic_auto_loc_list = 1
+  let g:syntastic_check_on_open = 1
+  let g:syntastic_check_on_wq = 0
+
   Plugin 'tpope/vim-markdown'
-  Plugin 'tpope/vim-rails'
   Plugin 'hashivim/vim-hashicorp-tools'
-  Plugin 'django.vim'
 
   " Some nice colours to have around
   Plugin 'altercation/vim-colors-solarized'
@@ -103,7 +112,9 @@ set background=dark
 colorscheme solarized
 
 " Use the system registry by default for the clipboard
-set clipboard=unnamed
+if $TMUX == ''
+  set clipboard+=unnamed
+endif
 
 " Allow Ctrl+PgUp/PgDn in tmux
 set t_kN=[6;*~
@@ -162,7 +173,7 @@ au BufRead,BufNewFile *.rb,*.erb
 " HTML: 2 spaces
 " JS: 2 spaces
 " CSS: 2 spaces
-au BufNewFile,BufRead *.js, *.html, *.css
+au BufNewFile,BufRead *.js,*.html,*.css
     \ set tabstop=2     |
     \ set softtabstop=2 |
     \ set shiftwidth=2  |
@@ -186,7 +197,7 @@ au BufRead,BufNewFile *.md
     \ set autoindent
 
 " Clojure: 2 spaces
-au BufRead,BufNewFile *.clj set sw=2 ts=2 sts=2 expandtab
+au BufRead,BufNewFile *.clj
     \ set tabstop=2     |
     \ set softtabstop=2 |
     \ set shiftwidth=2  |

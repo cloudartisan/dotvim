@@ -3,6 +3,7 @@ YouCompleteMe
 desert256.vim
 django.vim
 promptline.vim
+syntastic
 tmuxline.vim
 ultisnips
 vim-airline
