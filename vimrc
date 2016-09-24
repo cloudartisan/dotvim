@@ -40,7 +40,9 @@ call vundle#begin()
   let g:syntastic_check_on_open = 1
   let g:syntastic_check_on_wq = 0
 
+  " Filetype specific magics
   Plugin 'tpope/vim-markdown'
+  Plugin 'tweekmonster/django-plus.vim'
   Plugin 'hashivim/vim-hashicorp-tools'
 
   " Some nice colours to have around
