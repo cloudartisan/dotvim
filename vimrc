@@ -10,6 +10,19 @@ call vundle#begin()
   " Let Vundle manage Vundle
   Plugin 'gmarik/Vundle.vim'
 
+  " Adds code (un)commenting commands
+  " e.g., :gcap will comment the current paragraph
+  "       :gc5j will comment the current line and 5 lines below
+  Plugin 'tomtom/tcomment_vim'
+  
+  " Adds sorting commands
+  " e.g., :gsap will sort the current paragraph
+  Plugin 'christoomey/vim-sort-motion'
+  
+  " Adds replace commands
+  " e.g., :griw will replace the current word with the register
+  Plugin 'vim-scripts/ReplaceWithRegister'
+
   " Git/Gist
   Plugin 'tpope/vim-fugitive'    " Handy git commands
   Plugin 'tpope/vim-git'         " Syntax, indent, and filetype
@@ -31,12 +44,12 @@ call vundle#begin()
   " Syntax checking
   Plugin 'scrooloose/syntastic'
 
-  set statusline+=%#warningmsg#
-  set statusline+=%{SyntasticStatuslineFlag()}
-  set statusline+=%*
-
+  " Always open the location list if errors are detected and close
+  " when there are no more errors. Limit the size of the location
+  " list to no more than 5 lines. Check on open, but not on quit.
   let g:syntastic_always_populate_loc_list = 1
   let g:syntastic_auto_loc_list = 1
+  let g:syntastic_loc_list_height = 5
   let g:syntastic_check_on_open = 1
   let g:syntastic_check_on_wq = 0
 
@@ -51,11 +64,15 @@ call vundle#begin()
   " Code completion
   Plugin 'Valloric/YouCompleteMe'
 
-  let g:ycm_collect_identifiers_from_tags_files = 1 " Let YCM read tags from Ctags file
-  let g:ycm_use_ultisnips_completer = 1             " Default 1, just ensure
-  let g:ycm_seed_identifiers_with_syntax = 1        " Completion for programming language's keyword
-  let g:ycm_complete_in_comments = 1                " Completion in comments
-  let g:ycm_complete_in_strings = 1                 " Completion in string
+  let g:ycm_collect_identifiers_from_tags_files = 1        " Let YCM read tags from Ctags file
+  let g:ycm_use_ultisnips_completer = 1                    " Default 1, just ensure
+  let g:ycm_seed_identifiers_with_syntax = 1               " Completion for programming language's keyword
+  let g:ycm_complete_in_comments = 1                       " Completion in comments
+  let g:ycm_complete_in_strings = 1                        " Completion in string
+
+  " Closes the scratch/preview window once the completion/insertion is finished
+  let g:ycm_autoclose_preview_window_after_insertion = 1
+  let g:ycm_autoclose_preview_window_after_completion = 1
 
   " Snippet magic
   Plugin 'SirVer/ultisnips'
@@ -75,6 +92,10 @@ filetype plugin indent on
 
 " Trust vim modelines in the files we edit
 set modeline
+
+" Line numbers relative to the current position
+set number
+set relativenumber
 
 " Disable search annoyances
 set noincsearch
@@ -96,7 +117,6 @@ set foldclose=       " disable automatic fold closing
 set showcmd          " show the vi command in the ruler
 set showmatch        " show me matching parentheses, braces, etc
 set matchpairs+=<:>  " include < > when matching
-set ignorecase       " case-insensitive searching
 set smartcase        " determine when I really want case-sensitive searching
 
 " Enable syntax highlighting where possible
@@ -118,7 +138,7 @@ if $TMUX == ''
   set clipboard+=unnamed
 endif
 
-" Allow Ctrl+PgUp/PgDn in tmux
+" Allow Ctrl+PgUp/PgDn in tmux (Fn+Up/Dn in Mac OS/X)
 set t_kN=[6;*~
 set t_kP=[5;*~
 
@@ -228,12 +248,6 @@ au BufRead,BufNewFile *.tf
     \ set autoindent    |
     \ set textwidth=0   |
     \ set nowrap
-
-" Django template tags
-au Filetype htmldjango inoremap <buffer> <c-t> {%<space><space>%}<left><left><left>
-
-" Django template variables
-au Filetype htmldjango inoremap <buffer> <c-v> {{<space><space>}}<left><left><left>
 
 " Use the below highlight group when displaying bad whitespace
 highlight BadWhitespace ctermbg=red guibg=red

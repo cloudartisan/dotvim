@@ -1,10 +1,12 @@
 Gist.vim
+ReplaceWithRegister
 YouCompleteMe
 desert256.vim
 django.vim
 django-plus.vim
 promptline.vim
 syntastic
+tcomment_vim
 tmuxline.vim
 ultisnips
 vim-airline
@@ -16,3 +18,4 @@ vim-hashicorp-tools
 vim-markdown
 vim-rails
 vim-snippets
+vim-sort-motion
