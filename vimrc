@@ -60,6 +60,7 @@ call vundle#begin()
   Plugin 'tpope/vim-markdown'
   Plugin 'tweekmonster/django-plus.vim'
   Plugin 'hashivim/vim-hashicorp-tools'
+  Plugin 'rodjek/vim-puppet'
 
   " Some nice colours to have around
   Plugin 'altercation/vim-colors-solarized'
