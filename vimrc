@@ -18,6 +18,9 @@ call vundle#begin()
   " Adds sorting commands
   " e.g., :gsap will sort the current paragraph
   Plugin 'christoomey/vim-sort-motion'
+
+  " Enables moving between vim splits and tmux splits seamlessly
+  Plugin 'christoomey/vim-tmux-navigator'
   
   " Adds replace commands
   " e.g., :griw will replace the current word with the register
