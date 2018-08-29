@@ -253,6 +253,19 @@ au BufRead,BufNewFile *.tf
     \ set textwidth=0   |
     \ set nowrap
 
+" Groovy:
+au BufRead,BufNewFile *.groovy
+    \ set tabstop=4     |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4  |
+    \ set textwidth=79  |
+    \ set expandtab     |
+    \ set autoindent    |
+    \ set fileformat=unix
+
+" Jenkinsfiles: a Groovy-like syntax for Jenkins pipelines
+au BufRead,BufNewFile Jenkinsfile* setf groovy
+
 " Use the below highlight group when displaying bad whitespace
 highlight BadWhitespace ctermbg=red guibg=red
 
