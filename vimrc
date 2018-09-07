@@ -26,6 +26,9 @@ call vundle#begin()
   " e.g., :griw will replace the current word with the register
   Plugin 'vim-scripts/ReplaceWithRegister'
 
+  " Text alignment
+  Plugin 'godlygeek/tabular'
+
   " Git/Gist
   Plugin 'tpope/vim-fugitive'    " Handy git commands
   Plugin 'tpope/vim-git'         " Syntax, indent, and filetype
