@@ -65,6 +65,9 @@ call vundle#begin()
   Plugin 'hashivim/vim-hashicorp-tools'
   Plugin 'rodjek/vim-puppet'
 
+  " Support for Golang
+  Plugin 'fatih/vim-go'
+
   " Some nice colours to have around
   Plugin 'altercation/vim-colors-solarized'
 
