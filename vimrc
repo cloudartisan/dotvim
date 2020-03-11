@@ -49,57 +49,53 @@ call vundle#begin()
 
   " Code completion
   Plugin 'Valloric/YouCompleteMe'
-
-  " Syntax checking
-  Plugin 'scrooloose/syntastic'
-
-  " Always open the location list if errors are detected and close
-  " when there are no more errors. Limit the size of the location
-  " list to no more than 5 lines. Check on open, but not on quit.
-  let g:syntastic_always_populate_loc_list = 1
-  let g:syntastic_auto_loc_list = 1
-  let g:syntastic_loc_list_height = 5
-  let g:syntastic_check_on_open = 1
-  let g:syntastic_check_on_wq = 0
-
-  " Filetype specific magics
-  Plugin 'tpope/vim-markdown'
-  Plugin 'tweekmonster/django-plus.vim'
-  Plugin 'hashivim/vim-hashicorp-tools'
-  Plugin 'rodjek/vim-puppet'
-
-  " Support for Golang
-  Plugin 'fatih/vim-go'
-
-  " Support for Java
-  Plugin 'artur-shaik/vim-javacomplete2'
-
-  " Some nice colours to have around
-  Plugin 'altercation/vim-colors-solarized'
-
   let g:ycm_collect_identifiers_from_tags_files = 1        " Let YCM read tags from Ctags file
   let g:ycm_use_ultisnips_completer = 1                    " Default 1, just ensure
   let g:ycm_seed_identifiers_with_syntax = 1               " Completion for programming language's keyword
   let g:ycm_complete_in_comments = 1                       " Completion in comments
   let g:ycm_complete_in_strings = 1                        " Completion in string
-
   " Closes the scratch/preview window once the completion/insertion is finished
   let g:ycm_autoclose_preview_window_after_insertion = 1
   let g:ycm_autoclose_preview_window_after_completion = 1
 
+  " Java completion
+  "Plugin 'artur-shaik/vim-javacomplete2'
+
+  " Syntax checking / linting
+  Plugin 'dense-analysis/ale'
+
+  " Syntax checking
+  "Plugin 'scrooloose/syntastic'
+  " Always open the location list if errors are detected and close
+  " when there are no more errors. Limit the size of the location
+  " list to no more than 5 lines. Check on open, but not on quit.
+  "let g:syntastic_always_populate_loc_list = 1
+  "let g:syntastic_auto_loc_list = 1
+  "let g:syntastic_loc_list_height = 5
+  "let g:syntastic_check_on_open = 1
+  "let g:syntastic_check_on_wq = 0
+
+  " Framework-specific magics
+  Plugin 'tweekmonster/django-plus.vim'
+
+  " Support for Golang
+  Plugin 'fatih/vim-go'
+
+  " Some nice colours to have around
+  Plugin 'altercation/vim-colors-solarized'
+
   " Snippet magic
   Plugin 'SirVer/ultisnips'
   Plugin 'honza/vim-snippets'
-
   " Trigger configuration. Do not use <tab> if you use
   " https://github.com/Valloric/YouCompleteMe.
-  let g:UltiSnipsExpandTrigger       = "<c-j>"
+  let g:UltiSnipsExpandTrigger       = "<c-tab>"
   let g:UltiSnipsJumpForwardTrigger  = "<c-j>"
   let g:UltiSnipsJumpBackwardTrigger = "<c-p>"
   let g:UltiSnipsListSnippets        = "<c-k>" "List possible snippets based on current file
-
   " If you want :UltiSnipsEdit to split your window.
   let g:UltiSnipsEditSplit="vertical"
+
 call vundle#end()
 filetype plugin indent on
 
@@ -187,11 +183,11 @@ if isdirectory("~/.vim/doc")
 endif
 
 " Easy compile java in vim
-au FileType java set makeprg=javac\ %
-au FileType java set errorformat=%A%f:%l:\ %m,%-Z%p^,%-C.%#
+"au FileType java set makeprg=javac\ %
+"au FileType java set errorformat=%A%f:%l:\ %m,%-Z%p^,%-C.%#
 " Java completion
-au FileType java setlocal omnifunc=javacomplete#Complete
-au FileType java JCEnable
+"au FileType java setlocal omnifunc=javacomplete#Complete
+"au FileType java JCEnable
 
 " Golang
 au FileType go set noexpandtab
