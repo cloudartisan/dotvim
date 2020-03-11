@@ -47,6 +47,9 @@ call vundle#begin()
   Plugin 'edkolev/promptline.vim'
   let g:promptline_powerline_symbols = 0
 
+  " Code completion
+  Plugin 'Valloric/YouCompleteMe'
+
   " Syntax checking
   Plugin 'scrooloose/syntastic'
 
@@ -68,11 +71,11 @@ call vundle#begin()
   " Support for Golang
   Plugin 'fatih/vim-go'
 
+  " Support for Java
+  Plugin 'artur-shaik/vim-javacomplete2'
+
   " Some nice colours to have around
   Plugin 'altercation/vim-colors-solarized'
-
-  " Code completion
-  Plugin 'Valloric/YouCompleteMe'
 
   let g:ycm_collect_identifiers_from_tags_files = 1        " Let YCM read tags from Ctags file
   let g:ycm_use_ultisnips_completer = 1                    " Default 1, just ensure
@@ -182,6 +185,13 @@ endif
 if isdirectory("~/.vim/doc")
   helptags ~/.vim/doc
 endif
+
+" Easy compile java in vim
+au FileType java set makeprg=javac\ %
+au FileType java set errorformat=%A%f:%l:\ %m,%-Z%p^,%-C.%#
+" Java completion
+au FileType java setlocal omnifunc=javacomplete#Complete
+au FileType java JCEnable
 
 " Golang
 au FileType go set noexpandtab
