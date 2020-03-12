@@ -1,9 +1,6 @@
 set nocompatible " Required by Vundle
 filetype off     " Required by Vundle
 
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
-
 " Set the runtime path to include Vundle and load all the plugins
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -63,17 +60,6 @@ call vundle#begin()
 
   " Syntax checking / linting
   Plugin 'dense-analysis/ale'
-
-  " Syntax checking
-  "Plugin 'scrooloose/syntastic'
-  " Always open the location list if errors are detected and close
-  " when there are no more errors. Limit the size of the location
-  " list to no more than 5 lines. Check on open, but not on quit.
-  "let g:syntastic_always_populate_loc_list = 1
-  "let g:syntastic_auto_loc_list = 1
-  "let g:syntastic_loc_list_height = 5
-  "let g:syntastic_check_on_open = 1
-  "let g:syntastic_check_on_wq = 0
 
   " Framework-specific magics
   Plugin 'tweekmonster/django-plus.vim'
@@ -298,7 +284,8 @@ au BufRead,BufNewFile Jenkinsfile* setf groovy
 " Use the below highlight group when displaying bad whitespace
 highlight BadWhitespace ctermbg=red guibg=red
 
-" Display tabs at the beginning of a line in Python mode as bad.
+" Tabs at the beginning of a line are bad mmkay.
+" Python: yes
 au BufRead,BufNewFile *.py,*.pyw match BadWhitespace /^\t\+/
 
 " Flag trailing whitespace as bad.
