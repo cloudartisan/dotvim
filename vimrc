@@ -78,6 +78,19 @@ call vundle#begin()
     \   '*': ['remove_trailing_lines', 'trim_whitespace'],
   \}
 
+  " NERDTree
+  Plugin 'scrooloose/nerdtree'
+  " Open NERDTree using leader-n (\-n)
+  map <leader>n :NERDTreeToggle<CR>
+  " Open when no files were specified on vim launch
+  autocmd StdinReadPre * let s:std_in=1
+  autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+  " TagBar
+  Plugin 'majutsushi/tagbar'
+  " Open TagBar using leader-t (\-t)
+  map <leader>t :TagbarToggle<CR>
+
   " Framework-specific magics
   Plugin 'tweekmonster/django-plus.vim'
 
@@ -97,7 +110,7 @@ call vundle#begin()
   let g:UltiSnipsJumpBackwardTrigger = "<c-p>"
   let g:UltiSnipsListSnippets        = "<c-k>" "List possible snippets based on current file
   " Use :UltiSnipsEdit to split your window to edit the snippets side-by-side.
-  let g:UltiSnipsEditSplit="vertical"
+  let g:UltiSnipsEditSplit = "vertical"
   " Load snippets from...
   let g:UltiSnipsSnippetDirectories = ['~/.vim/UltiSnips', 'UltiSnips']
   let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips"
