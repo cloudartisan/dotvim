@@ -55,9 +55,6 @@ call vundle#begin()
   let g:ycm_autoclose_preview_window_after_insertion = 1
   let g:ycm_autoclose_preview_window_after_completion = 1
 
-  " Java completion
-  "Plugin 'artur-shaik/vim-javacomplete2'
-
   " Syntax checking / linting
   Plugin 'dense-analysis/ale'
   " Shorten error/warning flags
@@ -187,13 +184,6 @@ endif
 if isdirectory("~/.vim/doc")
   helptags ~/.vim/doc
 endif
-
-" Easy compile java in vim
-"au FileType java set makeprg=javac\ %
-"au FileType java set errorformat=%A%f:%l:\ %m,%-Z%p^,%-C.%#
-" Java completion
-"au FileType java setlocal omnifunc=javacomplete#Complete
-"au FileType java JCEnable
 
 " Golang
 au FileType go set noexpandtab
