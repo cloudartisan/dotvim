@@ -60,6 +60,23 @@ call vundle#begin()
 
   " Syntax checking / linting
   Plugin 'dense-analysis/ale'
+  " Shorten error/warning flags
+  let g:ale_echo_msg_error_str = 'E'
+  let g:ale_echo_msg_warning_str = 'W'
+  " Tell me which linter the error/warning comes from
+  let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+  " Customise error and warning symbols
+  let g:ale_sign_error = '✘✘'
+  let g:ale_sign_warning = '⚠⚠'
+  " Enable loclist at the bottom of vim 
+  let g:ale_open_list = 1
+  let g:ale_loclist = 1
+  " Enable integration with airline.
+  let g:airline#extensions#ale#enabled = 1
+  " A pox on whitespace!
+  let g:ale_fixers = {
+    \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+  \}
 
   " Framework-specific magics
   Plugin 'tweekmonster/django-plus.vim'
@@ -79,8 +96,11 @@ call vundle#begin()
   let g:UltiSnipsJumpForwardTrigger  = "<c-j>"
   let g:UltiSnipsJumpBackwardTrigger = "<c-p>"
   let g:UltiSnipsListSnippets        = "<c-k>" "List possible snippets based on current file
-  " If you want :UltiSnipsEdit to split your window.
+  " Use :UltiSnipsEdit to split your window to edit the snippets side-by-side.
   let g:UltiSnipsEditSplit="vertical"
+  " Load snippets from...
+  let g:UltiSnipsSnippetDirectories = ['~/.vim/UltiSnips', 'UltiSnips']
+  let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips"
 
 call vundle#end()
 filetype plugin indent on
@@ -189,8 +209,6 @@ let g:go_highlight_operators = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_types = 1
 let g:go_auto_sameids = 1
-" Enable integration with airline.
-let g:airline#extensions#ale#enabled = 1
 
 " Python: 4 spaces (PEP8)
 au BufRead,BufNewFile *.py,*.pyw
