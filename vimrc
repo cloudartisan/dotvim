@@ -86,10 +86,11 @@ call vundle#begin()
   autocmd StdinReadPre * let s:std_in=1
   autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
-  " TagBar
+  " Tag management, courtesy of TagBar and gutentags
   Plugin 'majutsushi/tagbar'
   " Open TagBar using leader-t (\-t)
   map <leader>t :TagbarToggle<CR>
+  Plugin 'ludovicchabant/vim-gutentags'
 
   " Framework-specific magics
   Plugin 'tweekmonster/django-plus.vim'
