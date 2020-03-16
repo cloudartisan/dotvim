@@ -65,12 +65,15 @@ call vundle#begin()
   " Customise error and warning symbols
   let g:ale_sign_error = '✘✘'
   let g:ale_sign_warning = '⚠⚠'
-  " Enable open and loc list at the bottom of vim 
-  let g:ale_open_list = 1
-  let g:ale_loclist = 1
+  " Enable/disable open and loc list at the bottom of vim 
+  let g:ale_open_list = 0
+  let g:ale_loclist = 0
   " Loc List open/close
   map <leader>e :lopen<CR>
   map <leader>w :lclose<CR>
+  " Use leader-j/k to move between errors
+  nmap <silent> <leader>k <Plug>(ale_previous_wrap)
+  nmap <silent> <leader>j <Plug>(ale_next_wrap)
   " Enable integration with airline.
   let g:airline#extensions#ale#enabled = 1
   " A pox on whitespace!
