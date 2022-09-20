@@ -7,6 +7,9 @@ call vundle#begin()
   " Let Vundle manage Vundle
   Plugin 'gmarik/Vundle.vim'
 
+  " Nord theme
+  Plugin 'arcticicestudio/nord-vim'
+
   " Adds code (un)commenting commands
   " e.g., :gcap will comment the current paragraph
   "       :gc5j will comment the current line and 5 lines below
@@ -37,12 +40,12 @@ call vundle#begin()
   set laststatus=2
 
   " Integrate the statusline with the tmux status
-  Plugin 'edkolev/tmuxline.vim'
-  let g:tmuxline_powerline_separators = 0
+  "Plugin 'edkolev/tmuxline.vim'
+  "let g:tmuxline_powerline_separators = 0
 
   " Integrate the statusline with the shell prompt
-  Plugin 'edkolev/promptline.vim'
-  let g:promptline_powerline_symbols = 0
+  "Plugin 'edkolev/promptline.vim'
+  "let g:promptline_powerline_symbols = 0
 
   " Code completion
   Plugin 'Valloric/YouCompleteMe'
