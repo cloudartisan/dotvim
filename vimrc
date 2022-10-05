@@ -93,7 +93,7 @@ call vundle#begin()
   let g:airline#extensions#ale#enabled = 1
   " A pox on whitespace!
   let g:ale_fixers = {
-    \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+  \   '*': ['remove_trailing_lines', 'trim_whitespace'],
   \}
 
   " NERDTree
