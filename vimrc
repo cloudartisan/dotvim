@@ -131,6 +131,8 @@ call vundle#begin()
   let g:UltiSnipsSnippetDirectories = ['~/.vim/UltiSnips', 'UltiSnips']
   let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips"
 
+  " See http://hashivim.github.io/ for syntax highlighting for Hashicorp products
+  Plugin 'hashivim/vim-terraform'
 call vundle#end()
 filetype plugin indent on
 
