@@ -7,8 +7,16 @@ call vundle#begin()
   " Let Vundle manage Vundle
   Plugin 'gmarik/Vundle.vim'
 
+  " Solarized theme
+  "Plugin 'altercation/vim-colors-solarized'
+
   " Nord theme
   Plugin 'arcticicestudio/nord-vim'
+  let g:nord_cursor_line_number_background = 1
+  " use a uniform style for active and inactive status lines
+  let g:nord_uniform_status_lines = 1
+  " highlight the background of separators, making them appear more bold
+  let g:nord_bold_vertical_split_line = 1
 
   " Adds code (un)commenting commands
   " e.g., :gcap will comment the current paragraph
@@ -35,9 +43,13 @@ call vundle#begin()
   Plugin 'vim-scripts/Gist.vim'  " Managing gists
 
   " Improve the statusline, always show it
-  Plugin 'vim-airline/vim-airline'
-  Plugin 'vim-airline/vim-airline-themes'
+  Plugin 'itchyny/lightline.vim'
+  let g:lightline = {
+      \ 'colorscheme': 'nord',
+      \  }
   set laststatus=2
+  "Plugin 'vim-airline/vim-airline'
+  "Plugin 'vim-airline/vim-airline-themes'
 
   " Integrate the statusline with the tmux status
   "Plugin 'edkolev/tmuxline.vim'
@@ -104,9 +116,6 @@ call vundle#begin()
   " Support for Golang
   Plugin 'fatih/vim-go'
 
-  " Some nice colours to have around
-  Plugin 'altercation/vim-colors-solarized'
-
   " Snippet magic
   Plugin 'SirVer/ultisnips'
   Plugin 'honza/vim-snippets'
@@ -160,13 +169,17 @@ if has("syntax")
   let python_highlight_all=1
 end
 
-" Solarized colorscheme, relies on Terminal.app/iTerm2 also having the
-" solarized scheme loaded; if not, uncomment following 3 lines
+" Solarized/Node colorschemes, rely on Terminal.app/iTerm2 also having the
+" scheme loaded
+set background=dark
+colorscheme nord
+"colorscheme solarized
+
+" If the terminal does not have the scheme loaded, try uncommenting the
+" following 3 lines instead of using colorscheme:
 "set term=xterm-256color
 "set t_Co=256
 "let g:solarized_termcolors=256
-set background=dark
-colorscheme solarized
 
 " Use the system registry by default for the clipboard
 if $TMUX == ''
