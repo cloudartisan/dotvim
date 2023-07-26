@@ -80,12 +80,50 @@ call vundle#begin()
   " Customise error and warning symbols
   let g:ale_sign_error = '✘✘'
   let g:ale_sign_warning = '⚠⚠'
+
+  " Toggle signcolumn. Works on vim>=8.1 or NeoVim
+  nnoremap <Leader>s :call ToggleSignColumn()<CR>
+  function! ToggleSignColumn()
+    if !exists("b:signcolumn_on") || b:signcolumn_on
+      set signcolumn=no
+      let b:signcolumn_on=0
+    else
+      set signcolumn=yes
+      let b:signcolumn_on=1
+    endif
+  endfunction
+
   " Enable/disable open and loc list at the bottom of vim 
   let g:ale_open_list = 0
   let g:ale_loclist = 0
   " Loc List open/close
-  map <leader>e :lopen<CR>
-  map <leader>w :lclose<CR>
+  "map <leader>e :lopen<CR>
+  "map <leader>w :lclose<CR>
+
+  " Toggle ALE loc list
+  noremap <Leader>l :call LocListToggle()<CR>
+  function! LocListToggle()
+    if exists("g:loclist_win")
+      lclose
+      unlet g:loclist_win
+    else
+      lopen 10
+      let g:loclist_win = bufnr("$")
+    endif
+  endfunction
+
+  " Toggle ALE quick list
+  noremap <Leader>q :call QFixToggle()<CR>
+  function! QFixToggle()
+    if exists("g:qfix_win")
+      cclose
+      unlet g:qfix_win
+    else
+      copen 10
+      let g:qfix_win = bufnr("$")
+    endif
+  endfunction
+
   " Use leader-j/k to move between errors
   nmap <silent> <leader>k <Plug>(ale_previous_wrap)
   nmap <silent> <leader>j <Plug>(ale_next_wrap)
@@ -142,6 +180,11 @@ set modeline
 " Line numbers relative to the current position
 set number
 set relativenumber
+" Toggle line numbering
+nnoremap <Leader>n :set number!<CR>:set relativenumber!<CR>
+
+" Toggle paste mode
+nnoremap <Leader>p :set paste!<CR>
 
 " Disable search annoyances
 set noincsearch
