@@ -1,17 +1,12 @@
 set nocompatible " Required by Vundle
 filetype off     " Required by Vundle
 
-" Set the runtime path to include Vundle and load all the plugins
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-  " Let Vundle manage Vundle
-  Plugin 'gmarik/Vundle.vim'
+call plug#begin()
 
-  " Solarized theme
-  "Plugin 'altercation/vim-colors-solarized'
+  Plug 'tpope/vim-sensible'
 
   " Nord theme
-  Plugin 'arcticicestudio/nord-vim'
+  Plug 'arcticicestudio/nord-vim'
   let g:nord_cursor_line_number_background = 1
   " use a uniform style for active and inactive status lines
   let g:nord_uniform_status_lines = 1
@@ -21,46 +16,46 @@ call vundle#begin()
   " Adds code (un)commenting commands
   " e.g., :gcap will comment the current paragraph
   "       :gc5j will comment the current line and 5 lines below
-  Plugin 'tomtom/tcomment_vim'
+  Plug 'tomtom/tcomment_vim'
   
   " Adds sorting commands
   " e.g., :gsap will sort the current paragraph
-  Plugin 'christoomey/vim-sort-motion'
+  Plug 'christoomey/vim-sort-motion'
 
   " Enables moving between vim splits and tmux splits seamlessly
-  Plugin 'christoomey/vim-tmux-navigator'
+  Plug 'christoomey/vim-tmux-navigator'
   
   " Adds replace commands
   " e.g., :griw will replace the current word with the register
-  Plugin 'vim-scripts/ReplaceWithRegister'
+  Plug 'vim-scripts/ReplaceWithRegister'
 
   " Text alignment
-  Plugin 'godlygeek/tabular'
+  Plug 'godlygeek/tabular'
 
   " Git/Gist
-  Plugin 'tpope/vim-fugitive'    " Handy git commands
-  Plugin 'tpope/vim-git'         " Syntax, indent, and filetype
-  Plugin 'vim-scripts/Gist.vim'  " Managing gists
+  Plug 'tpope/vim-fugitive'    " Handy git commands
+  Plug 'tpope/vim-git'         " Syntax, indent, and filetype
+  Plug 'vim-scripts/Gist.vim'  " Managing gists
 
   " Improve the statusline, always show it
-  Plugin 'itchyny/lightline.vim'
+  Plug 'itchyny/lightline.vim'
   let g:lightline = {
       \ 'colorscheme': 'nord',
       \  }
   set laststatus=2
-  "Plugin 'vim-airline/vim-airline'
-  "Plugin 'vim-airline/vim-airline-themes'
+  "Plug 'vim-airline/vim-airline'
+  "Plug 'vim-airline/vim-airline-themes'
 
   " Integrate the statusline with the tmux status
-  "Plugin 'edkolev/tmuxline.vim'
+  "Plug 'edkolev/tmuxline.vim'
   "let g:tmuxline_powerline_separators = 0
 
   " Integrate the statusline with the shell prompt
-  "Plugin 'edkolev/promptline.vim'
+  "Plug 'edkolev/promptline.vim'
   "let g:promptline_powerline_symbols = 0
 
   " Code completion
-  Plugin 'Valloric/YouCompleteMe'
+  Plug 'Valloric/YouCompleteMe'
   let g:ycm_collect_identifiers_from_tags_files = 1        " Let YCM read tags from Ctags file
   let g:ycm_use_ultisnips_completer = 1                    " Default 1, just ensure
   let g:ycm_seed_identifiers_with_syntax = 1               " Completion for programming language's keyword
@@ -71,7 +66,7 @@ call vundle#begin()
   let g:ycm_autoclose_preview_window_after_completion = 1
 
   " Syntax checking / linting
-  Plugin 'dense-analysis/ale'
+  Plug 'dense-analysis/ale'
   " Shorten error/warning flags
   let g:ale_echo_msg_error_str = 'E'
   let g:ale_echo_msg_warning_str = 'W'
@@ -135,7 +130,7 @@ call vundle#begin()
   \}
 
   " NERDTree
-  Plugin 'scrooloose/nerdtree'
+  Plug 'scrooloose/nerdtree'
   " Open NERDTree using leader-n (\-n)
   map <leader>n :NERDTreeToggle<CR>
   " Open when no files were specified on vim launch
@@ -143,20 +138,20 @@ call vundle#begin()
   autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
   " Tag management, courtesy of TagBar and gutentags
-  Plugin 'majutsushi/tagbar'
+  Plug 'majutsushi/tagbar'
   " Open TagBar using leader-t (\-t)
   map <leader>t :TagbarToggle<CR>
-  Plugin 'ludovicchabant/vim-gutentags'
+  Plug 'ludovicchabant/vim-gutentags'
 
   " Framework-specific magics
-  Plugin 'tweekmonster/django-plus.vim'
+  Plug 'tweekmonster/django-plus.vim'
 
   " Support for Golang
-  Plugin 'fatih/vim-go'
+  Plug 'fatih/vim-go'
 
   " Snippet magic
-  Plugin 'SirVer/ultisnips'
-  Plugin 'honza/vim-snippets'
+  Plug 'SirVer/ultisnips'
+  Plug 'honza/vim-snippets'
   " Trigger configuration. Do not use <tab> if you use
   " https://github.com/Valloric/YouCompleteMe.
   let g:UltiSnipsExpandTrigger       = "<c-tab>"
@@ -170,8 +165,10 @@ call vundle#begin()
   let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips"
 
   " See http://hashivim.github.io/ for syntax highlighting for Hashicorp products
-  Plugin 'hashivim/vim-terraform'
-call vundle#end()
+  Plug 'hashivim/vim-terraform'
+
+call plug#end()
+ 
 filetype plugin indent on
 
 " Trust vim modelines in the files we edit
