@@ -1,3 +1,6 @@
+" Define leader key explicitly to avoid conflicts
+let mapleader = "\\"
+
 call plug#begin()
 
   Plug 'tpope/vim-sensible'
@@ -14,14 +17,14 @@ call plug#begin()
   " e.g., :gcap will comment the current paragraph
   "       :gc5j will comment the current line and 5 lines below
   Plug 'tomtom/tcomment_vim'
-  
+
   " Adds sorting commands
   " e.g., :gsap will sort the current paragraph
   Plug 'christoomey/vim-sort-motion'
 
   " Enables moving between vim splits and tmux splits seamlessly
   Plug 'christoomey/vim-tmux-navigator'
-  
+
   " Adds replace commands
   " e.g., :griw will replace the current word with the register
   Plug 'vim-scripts/ReplaceWithRegister'
@@ -40,16 +43,6 @@ call plug#begin()
       \ 'colorscheme': 'nord',
       \  }
   set laststatus=2
-  "Plug 'vim-airline/vim-airline'
-  "Plug 'vim-airline/vim-airline-themes'
-
-  " Integrate the statusline with the tmux status
-  "Plug 'edkolev/tmuxline.vim'
-  "let g:tmuxline_powerline_separators = 0
-
-  " Integrate the statusline with the shell prompt
-  "Plug 'edkolev/promptline.vim'
-  "let g:promptline_powerline_symbols = 0
 
   " Code completion
   Plug 'Valloric/YouCompleteMe'
@@ -73,7 +66,7 @@ call plug#begin()
   let g:ale_sign_error = '✘✘'
   let g:ale_sign_warning = '⚠⚠'
 
-  " Toggle signcolumn. Works on vim>=8.1 or NeoVim
+  " Toggle signcolumn. Works on vim>=8.1 or NeoVim (with \s)
   nnoremap <Leader>s :call ToggleSignColumn()<CR>
   function! ToggleSignColumn()
     if !exists("b:signcolumn_on") || b:signcolumn_on
@@ -88,11 +81,8 @@ call plug#begin()
   " Enable/disable open and loc list at the bottom of vim 
   let g:ale_open_list = 0
   let g:ale_loclist = 0
-  " Loc List open/close
-  "map <leader>e :lopen<CR>
-  "map <leader>w :lclose<CR>
 
-  " Toggle ALE loc list
+  " Toggle ALE loc list (with \l)
   noremap <Leader>l :call LocListToggle()<CR>
   function! LocListToggle()
     if exists("g:loclist_win")
@@ -104,7 +94,7 @@ call plug#begin()
     endif
   endfunction
 
-  " Toggle ALE quick list
+  " Toggle ALE quick list (with \q)
   noremap <Leader>q :call QFixToggle()<CR>
   function! QFixToggle()
     if exists("g:qfix_win")
@@ -128,8 +118,9 @@ call plug#begin()
 
   " NERDTree
   Plug 'scrooloose/nerdtree'
-  " Open NERDTree using leader-n (\-n)
-  map <leader>n :NERDTreeToggle<CR>
+  " Simple NERDTree mapping with leader+tab
+  nnoremap <leader><tab> :NERDTreeToggle<CR>
+
   " Open when no files were specified on vim launch
   autocmd StdinReadPre * let s:std_in=1
   autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
@@ -165,19 +156,18 @@ call plug#begin()
   Plug 'hashivim/vim-terraform'
 
 call plug#end()
- 
-filetype plugin indent on
 
+filetype plugin indent on
 " Trust vim modelines in the files we edit
 set modeline
 
 " Line numbers relative to the current position
 set number
 set relativenumber
-" Toggle line numbering
+" Toggle line numbering (with \n)
 nnoremap <Leader>n :set number!<CR>:set relativenumber!<CR>
 
-" Toggle paste mode
+" Toggle paste mode (with \p)
 nnoremap <Leader>p :set paste!<CR>
 
 " Disable search annoyances
