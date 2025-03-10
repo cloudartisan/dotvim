@@ -3,71 +3,84 @@ let mapleader = "\\"
 
 call plug#begin()
 
+  "
+  " CORE PLUGINS & SENSIBLE DEFAULTS
+  "
+  " Sensible defaults that most people can agree on
   Plug 'tpope/vim-sensible'
 
-  " Nord theme
+  "
+  " APPEARANCE
+  "
+  " Nord theme - Arctic, north-bluish clean and elegant theme
   Plug 'arcticicestudio/nord-vim'
   let g:nord_cursor_line_number_background = 1
-  " use a uniform style for active and inactive status lines
-  let g:nord_uniform_status_lines = 1
-  " highlight the background of separators, making them appear more bold
-  let g:nord_bold_vertical_split_line = 1
+  let g:nord_uniform_status_lines = 1         " uniform style for active/inactive status lines
+  let g:nord_bold_vertical_split_line = 1     " bold separators for better visibility
 
-  " Adds code (un)commenting commands
-  " e.g., :gcap will comment the current paragraph
-  "       :gc5j will comment the current line and 5 lines below
-  Plug 'tomtom/tcomment_vim'
-
-  " Adds sorting commands
-  " e.g., :gsap will sort the current paragraph
-  Plug 'christoomey/vim-sort-motion'
-
-  " Enables moving between vim splits and tmux splits seamlessly
-  Plug 'christoomey/vim-tmux-navigator'
-
-  " Adds replace commands
-  " e.g., :griw will replace the current word with the register
-  Plug 'vim-scripts/ReplaceWithRegister'
-
-  " Text alignment
-  Plug 'godlygeek/tabular'
-
-  " Git/Gist
-  Plug 'tpope/vim-fugitive'    " Handy git commands
-  Plug 'tpope/vim-git'         " Syntax, indent, and filetype
-  Plug 'vim-scripts/Gist.vim'  " Managing gists
-
-  " Improve the statusline, always show it
+  " Improved statusline with theme support
   Plug 'itchyny/lightline.vim'
   let g:lightline = {
       \ 'colorscheme': 'nord',
       \  }
   set laststatus=2
+  
+  "
+  " NAVIGATION & FILE MANAGEMENT
+  "
+  " File explorer sidebar
+  Plug 'scrooloose/nerdtree'                   " File tree explorer
+  nnoremap <leader><tab> :NERDTreeToggle<CR>   " Toggle with \<tab>
+  " Auto-open NERDTree when vim starts with no files
+  autocmd StdinReadPre * let s:std_in=1
+  autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
-  " Code completion
-  Plug 'Valloric/YouCompleteMe'
-  let g:ycm_collect_identifiers_from_tags_files = 1        " Let YCM read tags from Ctags file
-  let g:ycm_use_ultisnips_completer = 0                    " Default 1, just ensure
-  let g:ycm_seed_identifiers_with_syntax = 1               " Completion for programming language's keyword
-  let g:ycm_complete_in_comments = 1                       " Completion in comments
-  let g:ycm_complete_in_strings = 1                        " Completion in string
-  " Closes the scratch/preview window once the completion/insertion is finished
-  let g:ycm_autoclose_preview_window_after_insertion = 1
-  let g:ycm_autoclose_preview_window_after_completion = 1
+  " Seamless navigation between tmux panes and vim splits
+  Plug 'christoomey/vim-tmux-navigator'        " Navigate splits with Ctrl+hjkl
 
-  " Syntax checking / linting
-  Plug 'dense-analysis/ale'
-  " Shorten error/warning flags
-  let g:ale_echo_msg_error_str = 'E'
-  let g:ale_echo_msg_warning_str = 'W'
-  " Tell me which linter the error/warning comes from
-  let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-  " Customise error and warning symbols
-  let g:ale_sign_error = '✘✘'
-  let g:ale_sign_warning = '⚠⚠'
+  "
+  " EDITING ENHANCEMENTS
+  "
+  " Code manipulation tools
+  Plug 'tomtom/tcomment_vim'                   " Smart commenting (gc to toggle comments)
+  Plug 'christoomey/vim-sort-motion'           " Sorting motions (gs + motion)
+  Plug 'vim-scripts/ReplaceWithRegister'       " Replace text with register (gr + motion)
+  Plug 'godlygeek/tabular'                     " Text alignment (:Tab /pattern)
 
-  " Toggle signcolumn. Works on vim>=8.1 or NeoVim (with \s)
-  nnoremap <Leader>s :call ToggleSignColumn()<CR>
+  "
+  " CODE INTELLIGENCE
+  " 
+  " Completion engine
+  Plug 'Valloric/YouCompleteMe'                " Intelligent code completion
+  let g:ycm_collect_identifiers_from_tags_files = 1        " Use tags for completion
+  let g:ycm_use_ultisnips_completer = 0                    " Disable UltiSnips integration
+  let g:ycm_seed_identifiers_with_syntax = 1               " Use syntax keywords
+  let g:ycm_complete_in_comments = 1                       " Complete in comments
+  let g:ycm_complete_in_strings = 1                        " Complete in strings
+  let g:ycm_autoclose_preview_window_after_insertion = 1   " Auto-close preview
+  let g:ycm_autoclose_preview_window_after_completion = 1  " Auto-close preview
+
+  " Linting and syntax checking
+  Plug 'dense-analysis/ale'                    " Asynchronous Lint Engine
+  let g:ale_echo_msg_error_str = 'E'                       " Error indicator
+  let g:ale_echo_msg_warning_str = 'W'                     " Warning indicator
+  let g:ale_echo_msg_format = '[%linter%] %s [%severity%]' " Message format
+  let g:ale_sign_error = '✘✘'                              " Error symbol
+  let g:ale_sign_warning = '⚠⚠'                            " Warning symbol
+  let g:ale_open_list = 0                                  " Don't auto-open error list
+  let g:ale_loclist = 0                                    " Don't auto-open location list
+  " Auto-fix whitespace issues
+  let g:ale_fixers = {
+  \   '*': ['remove_trailing_lines', 'trim_whitespace']
+  \}
+  let g:airline#extensions#ale#enabled = 1                 " Enable airline integration
+  
+  " Error navigation keymaps
+  nmap <silent> <leader>k <Plug>(ale_previous_wrap)        " Go to previous error
+  nmap <silent> <leader>j <Plug>(ale_next_wrap)            " Go to next error
+  
+  " Toggle functions for UI elements
+  nnoremap <Leader>s :call ToggleSignColumn()<CR>          " Toggle sign column
   function! ToggleSignColumn()
     if !exists("b:signcolumn_on") || b:signcolumn_on
       set signcolumn=no
@@ -78,12 +91,7 @@ call plug#begin()
     endif
   endfunction
 
-  " Enable/disable open and loc list at the bottom of vim 
-  let g:ale_open_list = 0
-  let g:ale_loclist = 0
-
-  " Toggle ALE loc list (with \l)
-  noremap <Leader>l :call LocListToggle()<CR>
+  noremap <Leader>l :call LocListToggle()<CR>              " Toggle location list
   function! LocListToggle()
     if exists("g:loclist_win")
       lclose
@@ -94,8 +102,7 @@ call plug#begin()
     endif
   endfunction
 
-  " Toggle ALE quick list (with \q)
-  noremap <Leader>q :call QFixToggle()<CR>
+  noremap <Leader>q :call QFixToggle()<CR>                 " Toggle quickfix list
   function! QFixToggle()
     if exists("g:qfix_win")
       cclose
@@ -106,58 +113,75 @@ call plug#begin()
     endif
   endfunction
 
-  " Use leader-j/k to move between errors
-  nmap <silent> <leader>k <Plug>(ale_previous_wrap)
-  nmap <silent> <leader>j <Plug>(ale_next_wrap)
-  " Enable integration with airline.
-  let g:airline#extensions#ale#enabled = 1
-  " A pox on whitespace!
-  let g:ale_fixers = {
-  \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-  \}
+  " Tag management for code navigation
+  Plug 'majutsushi/tagbar'                     " Show tags in sidebar
+  map <leader>t :TagbarToggle<CR>                          " Toggle tagbar
+  Plug 'ludovicchabant/vim-gutentags'          " Automatic tag management
 
-  " NERDTree
-  Plug 'scrooloose/nerdtree'
-  " Simple NERDTree mapping with leader+tab
-  nnoremap <leader><tab> :NERDTreeToggle<CR>
-
-  " Open when no files were specified on vim launch
-  autocmd StdinReadPre * let s:std_in=1
-  autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-
-  " Tag management, courtesy of TagBar and gutentags
-  Plug 'majutsushi/tagbar'
-  " Open TagBar using leader-t (\-t)
-  map <leader>t :TagbarToggle<CR>
-  Plug 'ludovicchabant/vim-gutentags'
-
-  " Framework-specific magics
-  Plug 'tweekmonster/django-plus.vim'
-
-  " Support for Golang
-  Plug 'fatih/vim-go'
-
-  " Snippet magic
-  Plug 'SirVer/ultisnips'
-  Plug 'honza/vim-snippets'
-  " Trigger configuration. Do not use <tab> if you use
-  " https://github.com/Valloric/YouCompleteMe.
-  let g:UltiSnipsExpandTrigger       = "<c-tab>"
-  let g:UltiSnipsJumpForwardTrigger  = "<c-j>"
-  let g:UltiSnipsJumpBackwardTrigger = "<c-p>"
-  let g:UltiSnipsListSnippets        = "<c-k>" "List possible snippets based on current file
-  " Use :UltiSnipsEdit to split your window to edit the snippets side-by-side.
-  let g:UltiSnipsEditSplit = "vertical"
-  " Load snippets from...
+  " Code snippets
+  Plug 'SirVer/ultisnips'                      " Snippet engine
+  Plug 'honza/vim-snippets'                    " Snippet collection
+  let g:UltiSnipsExpandTrigger       = "<c-tab>"           " Expand snippet
+  let g:UltiSnipsJumpForwardTrigger  = "<c-j>"             " Jump forward in snippet
+  let g:UltiSnipsJumpBackwardTrigger = "<c-p>"             " Jump backward in snippet
+  let g:UltiSnipsListSnippets        = "<c-k>"             " List available snippets
+  let g:UltiSnipsEditSplit = "vertical"                    " Split vertically when editing
   let g:UltiSnipsSnippetDirectories = ['~/.vim/UltiSnips', 'UltiSnips']
   let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips"
 
-  " See http://hashivim.github.io/ for syntax highlighting for Hashicorp products
-  Plug 'hashivim/vim-terraform'
+  "
+  " VERSION CONTROL
+  "
+  " Git integration
+  Plug 'tpope/vim-fugitive'                    " Git commands within vim
+  Plug 'tpope/vim-git'                         " Git syntax highlighting
+  Plug 'vim-scripts/Gist.vim'                  " GitHub gist integration
+
+  "
+  " LANGUAGE SUPPORT
+  "
+  " Framework support
+  Plug 'tweekmonster/django-plus.vim'          " Django framework support
+  
+  " Language-specific plugins
+  Plug 'fatih/vim-go'                          " Go language support
+  Plug 'hashivim/vim-terraform'                " Terraform configuration support
 
 call plug#end()
 
 filetype plugin indent on
+
+"
+" KEY MAPPINGS REFERENCE
+" ======================
+" Leader key is set to backslash (\)
+"
+" File Navigation:
+"   \<tab>      - Toggle NERDTree file browser
+"   Ctrl+h/j/k/l - Navigate between splits (left/down/up/right)
+"
+" Toggle UI Elements:
+"   \n          - Toggle line numbers
+"   \p          - Toggle paste mode
+"   \s          - Toggle sign column (error/warning gutter)
+"   \l          - Toggle location list
+"   \q          - Toggle quickfix list
+"   \t          - Toggle tag browser (Tagbar)
+"
+" Code & Errors:
+"   \j          - Go to next error/warning
+"   \k          - Go to previous error/warning
+"   gc{motion}  - Toggle comment (e.g., gcc for current line, gcap for paragraph)
+"   gs{motion}  - Sort text (e.g., gsap to sort a paragraph)
+"   gr{motion}  - Replace with register (e.g., griw to replace word)
+"
+" Snippets:
+"   Ctrl+Tab    - Expand snippet
+"   Ctrl+j      - Jump forward in snippet
+"   Ctrl+p      - Jump backward in snippet
+"   Ctrl+k      - List available snippets
+"
+
 " Trust vim modelines in the files we edit
 set modeline
 
@@ -225,16 +249,20 @@ set formatoptions+=t
 set textwidth=79
 set formatprg=par\ -w79re
 
+"
+" EDITOR CONFIGURATION
+" ====================
+
 " Default indentation handling
-set expandtab             " convert my tab characters to spaces
+set expandtab             " convert tab characters to spaces
 set shiftwidth=2          " shift by 2 spaces
 set tabstop=2             " tabs are 2 spaces
-set softtabstop=2
+set softtabstop=2         " backspace removes 2 spaces at once
 set backspace=indent,eol  " sensible backspacing
-set autoindent
-set nosmartindent
+set autoindent            " keep indentation on new line
+set nosmartindent         " don't try to be too smart about indenting
 
-" Set title string and push it to xterm/screen window title
+" Terminal and window title configuration
 set titlestring=vim\ %<%F%(\ %)%m%h%w%=%l/%L-%P
 set titlelen=70
 if &term == "screen" || &term == "tmux"
@@ -245,16 +273,73 @@ if &term == "screen" || &term == "tmux" || &term == "xterm"
   set title
 endif
 
-" Support plugin documentation
+" Documentation
 if isdirectory("~/.vim/doc")
   helptags ~/.vim/doc
 endif
 
-" Golang
-au FileType go set noexpandtab
-au FileType go set shiftwidth=4
-au FileType go set softtabstop=4
-au FileType go set tabstop=4
+"
+" LANGUAGE-SPECIFIC SETTINGS
+" ==========================
+" Using FileType is better than BufRead/BufNewFile for most settings
+" 
+" Create augroup to avoid duplicate autocmds when sourcing vimrc again
+augroup language_settings
+  autocmd!
+
+  " --- 2 SPACES ---
+  " Web, config, and data file formats: 2 spaces, expand tabs
+  autocmd FileType html,css,javascript,json,yaml,yml,ruby,eruby,markdown,clojure
+        \ setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+
+  " --- 4 SPACES ---
+  " Programming languages that commonly use 4 spaces
+  autocmd FileType python,groovy,java
+        \ setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab textwidth=79 fileformat=unix
+
+  " --- SPECIAL CASES ---
+  " Go uses tabs, not spaces
+  autocmd FileType go 
+        \ setlocal noexpandtab tabstop=4 softtabstop=4 shiftwidth=4
+
+  " Makefiles require tabs
+  autocmd FileType make setlocal noexpandtab
+
+  " C/C++ - use function to detect existing style or default to 4 spaces
+  autocmd FileType c,cpp call Select_c_style()
+
+  " Terraform/HCL - no text wrapping
+  autocmd FileType terraform
+        \ setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab textwidth=0 nowrap
+
+  " Jenkinsfiles are Groovy
+  autocmd BufRead,BufNewFile Jenkinsfile* setfiletype groovy
+
+  " --- CODE QUALITY HIGHLIGHTS ---
+  " Mark bad whitespace
+  highlight BadWhitespace ctermbg=red guibg=red
+  
+  " Highlight tabs at beginning of Python files (against PEP8)
+  autocmd FileType python match BadWhitespace /^\t\+/
+  
+  " Highlight trailing whitespace in several languages
+  autocmd FileType python,ruby,c,cpp match BadWhitespace /\s\+$/
+  
+  " Set text width for specific file types
+  autocmd FileType python,ruby,c,cpp setlocal textwidth=79
+  
+  " Highlight overflowing text
+  highlight OverLength ctermbg=red ctermfg=white guibg=red guifg=white
+  autocmd FileType python,ruby,c,cpp match OverLength '\%79v.*'
+  
+  " Fix C comment formatting
+  autocmd FileType c,cpp setlocal formatoptions-=c formatoptions-=o formatoptions-=r
+  
+  " Force UNIX line endings for new files
+  autocmd BufNewFile *.py,*.rb,*.c,*.h setlocal fileformat=unix
+augroup END
+
+" Go syntax highlighting settings
 let g:go_highlight_build_constraints = 1
 let g:go_highlight_extra_types = 1
 let g:go_highlight_fields = 1
@@ -265,135 +350,14 @@ let g:go_highlight_structs = 1
 let g:go_highlight_types = 1
 let g:go_auto_sameids = 1
 
-" Python: 4 spaces (PEP8)
-au BufRead,BufNewFile *.py,*.pyw
-    \ set tabstop=4     |
-    \ set softtabstop=4 |
-    \ set shiftwidth=4  |
-    \ set textwidth=79  |
-    \ set expandtab     |
-    \ set autoindent    |
-    \ set fileformat=unix
-
-" Ruby: 2 spaces
-" ERB: 2 spaces
-au BufRead,BufNewFile *.rb,*.erb
-    \ set tabstop=2     |
-    \ set softtabstop=2 |
-    \ set shiftwidth=2  |
-    \ set expandtab     |
-    \ set autoindent
-
-" HTML: 2 spaces
-" JS: 2 spaces
-" CSS: 2 spaces
-au BufNewFile,BufRead *.js,*.html,*.css
-    \ set tabstop=2     |
-    \ set softtabstop=2 |
-    \ set shiftwidth=2  |
-    \ set expandtab     |
-    \ set autoindent
-
-" YAML: 2 spaces
-au BufRead,BufNewFile *.yml
-    \ set tabstop=2     |
-    \ set softtabstop=2 |
-    \ set shiftwidth=2  |
-    \ set expandtab     |
-    \ set autoindent
-
-" Markdown: 2 spaces
-au BufRead,BufNewFile *.md
-    \ set tabstop=2     |
-    \ set softtabstop=2 |
-    \ set shiftwidth=2  |
-    \ set expandtab     |
-    \ set autoindent
-
-" Clojure: 2 spaces
-au BufRead,BufNewFile *.clj
-    \ set tabstop=2     |
-    \ set softtabstop=2 |
-    \ set shiftwidth=2  |
-    \ set expandtab     |
-    \ set autoindent
-
-" C: tabs (pre-existing files) or 4 spaces (new files)
-fu Select_c_style()
+" C indent detection function
+function! Select_c_style()
     if search('^\t', 'n', 150)
-        set sw=8 ts=8 noexpandtab
-    el
-        set sw=4 ts=4 expandtab
-    en
-endf
-au BufRead,BufNewFile *.c,*.h call Select_c_style()
-
-" Makefile: no tab expansion
-au BufRead,BufNewFile Makefile* set noexpandtab
-
-" HCL: 2 spaces, no auto-wrap
-au BufRead,BufNewFile *.tf
-    \ set tabstop=2     |
-    \ set softtabstop=2 |
-    \ set shiftwidth=2  |
-    \ set expandtab     |
-    \ set autoindent    |
-    \ set textwidth=0   |
-    \ set nowrap
-
-" Groovy:
-au BufRead,BufNewFile *.groovy
-    \ set tabstop=4     |
-    \ set softtabstop=4 |
-    \ set shiftwidth=4  |
-    \ set textwidth=79  |
-    \ set expandtab     |
-    \ set autoindent    |
-    \ set fileformat=unix
-
-" Jenkinsfiles: a Groovy-like syntax for Jenkins pipelines
-au BufRead,BufNewFile Jenkinsfile* setf groovy
-
-" Use the below highlight group when displaying bad whitespace
-highlight BadWhitespace ctermbg=red guibg=red
-
-" Tabs at the beginning of a line are bad mmkay.
-" Python: yes
-au BufRead,BufNewFile *.py,*.pyw match BadWhitespace /^\t\+/
-
-" Flag trailing whitespace as bad.
-" Python: yes
-" Ruby: yes
-" C: yes
-au BufRead,BufNewFile *.py,*.pyw,*.rb,*.c,*.h match BadWhitespace /\s\+$/
-
-" Wrap text after a certain number of characters
-" Python: 79
-" Ruby: 79
-" C: 79
-au BufRead,BufNewFile *.py,*.pyw,*.rb,*.c,*.h set textwidth=79
-
-" Highlight characters that go over the textwidth limit
-:highlight OverLength ctermbg=red ctermfg=white guibg=red guifg=white
-:match OverLength '\%79v.*'
-
-" Turn off settings in 'formatoptions' relating to comment formatting.
-" - c : do not automatically insert the comment leader when wrapping based on
-"    'textwidth'
-" - o : do not insert the comment leader when using 'o' or 'O' from command mode
-" - r : do not insert the comment leader when hitting <Enter> in insert mode
-" Python: not needed
-" Ruby: not needed
-" C: prevents insertion of '*' at the beginning of every line in a comment
-au BufRead,BufNewFile *.c,*.h set formatoptions-=c formatoptions-=o formatoptions-=r
-
-" Use UNIX (\n) line endings.
-" Only used for new files so as to not force existing files to change their
-" line endings.
-" Python: yes
-" Ruby: yes
-" C: yes
-au BufNewFile *.py,*.pyw,*.rb,*.c,*.h set fileformat=unix
+        setlocal sw=8 ts=8 noexpandtab
+    else
+        setlocal sw=4 ts=4 expandtab
+    endif
+endfunction
 
 " Folding based on indentation
 set foldmethod=marker

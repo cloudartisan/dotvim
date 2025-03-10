@@ -1,76 +1,116 @@
-# Installation
+# DotVim Configuration
 
-## Installing/Updating VIM
+A modern, organized Vim configuration with sensible defaults and carefully selected plugins.
 
-The plugins depend on vim 7.4.
+## Table of Contents
 
-On Mac:
+- [Overview](#overview)
+- [Features](#features)
+- [Installation](#installation)
+  - [Requirements](#requirements)
+  - [Installation Steps](#installation-steps)
+  - [Plugin Installation](#plugin-installation)
+  - [Compiling YouCompleteMe](#compiling-youcompleteme)
+- [Usage](#usage)
+  - [Key Mappings](#key-mappings)
+- [Customization](#customization)
+  - [Adding Plugins](#adding-plugins)
+  - [Language Configuration](#language-configuration)
 
-```
-brew update
-brew install vim
-```
+## Overview
 
-Make sure `/usr/local/bin/vim` is in your $PATH before system `vim` or that you
-alias `vim` to `/usr/local/bin/vim`:
+This Vim configuration provides a clean, efficient environment for coding with modern features like:
+- Code completion
+- Syntax checking and linting
+- Git integration
+- File navigation
+- Snippets
+- And more...
 
-```
-alias vim=/usr/local/bin/vim
-alias vi=/usr/local/bin/vim
-```
+## Features
 
-## Configuration
+- **Organized plugin structure** categorized by functionality
+- **Documented key mappings** for easy reference
+- **Modern plugin management** with vim-plug
+- **Language-specific settings** for consistent formatting
+- **Productivity enhancements** for faster coding
 
-```
+## Installation
+
+### Requirements
+
+- Vim 8.0+ recommended (minimum 7.4)
+- Git
+- Node.js (for some language servers)
+- Python (for YouCompleteMe)
+
+### Installation Steps
+
+```bash
+# Clone the repository
 git clone git@github.com:cloudartisan/dotvim.git ${HOME}/.vim
+
+# Create symlinks
 ln -s ${HOME}/.vim/vimrc ${HOME}/.vimrc
 ln -s ${HOME}/.vim/vimrc ${HOME}/.gvimrc
 ```
 
-## Submodules
+### Plugin Installation
 
-This will install `Vundle` as a submodule in the bundle, which is
-then used to install other plugins:
+This repository uses vim-plug for plugin management:
 
-```
-cd ${HOME}/.vim
-git submodule init
-git submodule update
+```bash
+# Install all plugins
+vim +PlugInstall +qall
 ```
 
-## Plugins
+### Compiling YouCompleteMe
 
-This will tell `Vundle` to install all plugins and then quit.
+The YouCompleteMe plugin requires compilation:
 
-```
-vim +PluginInstall +qall
-```
-
-## Compiling YouCompleteMe
-
-```
+```bash
 cd $HOME/.vim/bundle/YouCompleteMe
 ./install.py --clang-completer
 ```
 
-# Maintenance
+## Usage
 
-## Adding Plugins
+### Key Mappings
 
-Add them to `vimrc` between these lines:
+Key mappings are documented in the vimrc file. Here's a quick reference:
 
-```
-call vundle#begin()
+| Mapping | Description |
+|---------|-------------|
+| `\<tab>` | Toggle NERDTree file browser |
+| `\n` | Toggle line numbers |
+| `\p` | Toggle paste mode |
+| `\s` | Toggle sign column |
+| `\l` | Toggle location list |
+| `\q` | Toggle quickfix list |
+| `\t` | Toggle tag browser |
+| `\j` | Go to next error/warning |
+| `\k` | Go to previous error/warning |
+| `Ctrl+h/j/k/l` | Navigate splits (left/down/up/right) |
+
+## Customization
+
+### Adding Plugins
+
+Add plugins to `vimrc` between these lines:
+
+```vim
+call plug#begin()
 [...]
-call vundle#end()
+call plug#end()
 ```
 
-## Adding Submodules
+Plugin format:
 
-E.g. adding `vim-hashicorp-tools`:
+```vim
+Plug 'username/repo-name'
+```
 
-```
-git submodule add git@github.com:hashivim/vim-hashicorp-tools.git bundle/vim-hashicorp-tools
-git commit -m "Added vim-hashicorp-tools submodule"
-git push
-```
+### Language Configuration
+
+Language-specific settings for indentation, syntax highlighting, etc. are included in the vimrc.
+Add or modify as needed for your preferred languages.
