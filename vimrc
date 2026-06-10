@@ -225,7 +225,7 @@ end
 " Solarized/Node colorschemes, rely on Terminal.app/iTerm2 also having the
 " scheme loaded
 set background=dark
-colorscheme nord
+silent! colorscheme nord
 "colorscheme solarized
 
 " If the terminal does not have the scheme loaded, try uncommenting the
