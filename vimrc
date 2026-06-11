@@ -52,6 +52,7 @@ call plug#begin()
   " 
   " Completion engine
   Plug 'Valloric/YouCompleteMe'                " Intelligent code completion
+let g:ycm_java_binary_path = '/opt/homebrew/opt/openjdk/bin/java'
   let g:ycm_collect_identifiers_from_tags_files = 1        " Use tags for completion
   let g:ycm_use_ultisnips_completer = 0                    " Disable UltiSnips integration
   let g:ycm_seed_identifiers_with_syntax = 1               " Use syntax keywords
